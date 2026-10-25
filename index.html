@@ -3,94 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Azərbaycan Trivia Oyunu</title>
+    <title>Multilingual Trivia Game</title>
+    <!-- Xarici CSS faylı -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <!-- 1. Əsas Menyu -->
-        <div id="main-menu" class="screen">
-            <h1>🎮 Trivia Oyunu</h1>
-            <p id="high-score-display">🏆 Rekord: 0</p>
-            <div class="menu-buttons">
-                <button id="btn-singleplayer" class="menu-btn">👤 Solo Rejim</button>
-                <button id="btn-multiplayer-menu" class="menu-btn">👥 Multiplayer Arena</button>
-            </div>
-        </div>
 
-        <!-- 2. Kateqoriya Seçimi (Solo) -->
-        <div id="category-screen" class="screen" style="display: none;">
-            <h2>Kateqoriya Seçin</h2>
-            <div class="categories-grid">
-                <button class="cat-btn" data-category="Ümumi">🌐 Ümumi Sual</button>
-                <button class="cat-btn" data-category="Tarix">📜 Tarix</button>
-                <button class="cat-btn" data-category="Coğrafiya">🌍 Coğrafiya</button>
-                <button class="cat-btn" data-category="Riyaziyyat">🔢 Riyaziyyat</button>
-                <button class="cat-btn" data-category="Futbol">⚽ Futbol</button>
-                <button class="cat-btn" data-category="İT">💻 İT & Texnologiya</button>
-            </div>
-            <button id="back-to-main" class="back-btn">Geri</button>
-        </div>
-
-        <!-- 3. Multiplayer Menyu və Lobby -->
-        <div id="multiplayer-screen" class="screen" style="display: none;">
-            <h2>👥 Multiplayer Otaqlar</h2>
-            <div class="mp-inputs">
-                <input type="text" id="player-name" placeholder="Adınızı daxil edin..." maxlength="15">
-                <div class="mp-actions">
-                    <button id="create-room-btn" class="mp-btn">Otaq Yarat</button>
-                    <div class="join-box">
-                        <input type="text" id="room-code-input" placeholder="Otaq Kodu" maxlength="6">
-                        <button id="join-room-btn" class="mp-btn">Otağa Qoşul</button>
-                    </div>
-                </div>
-            </div>
-
-            <div id="room-lobby-box" style="display: none;" class="lobby-box">
-                <h3>Otaq Kodu: <span id="display-room-code" style="color: #ffcc00;">----</span></h3>
-                <p>Otaqdakı İştirakçılar:</p>
-                <ul id="lobby-players-list"></ul>
-                <button id="start-mp-game-btn" class="menu-btn" style="display: none; background: #4CAF50;">Oyunu Başlat</button>
-            </div>
-
-            <button id="back-to-menu-from-mp" class="back-btn">Geri</button>
-        </div>
-
-        <!-- 4. Oyun Ekranı -->
-        <div id="game-screen" class="screen" style="display: none;">
-            <div class="game-header">
-                <span id="cat-title">📁 Kateqoriya</span>
-                <span id="timer">⏱️ 20</span>
-                <span id="score">Xal: 0</span>
-            </div>
-
-            <!-- Canlı Multiplayer Xal Cədvəli -->
-            <div id="mp-scoreboard" style="display: none;" class="mp-scoreboard">
-                <div id="mp-scores-list"></div>
-            </div>
-
-            <button id="lifeline-btn" class="lifeline-btn">⚡ 50/50 Kömək (2 səhvi sil)</button>
-
-            <div class="question-container">
-                <h2 id="question-text">Sual yüklənir...</h2>
-            </div>
-
-            <div class="options-grid">
-                <button class="option-btn" data-index="0"><span class="opt-text">Cavab 1</span></button>
-                <button class="option-btn" data-index="1"><span class="opt-text">Cavab 2</span></button>
-                <button class="option-btn" data-index="2"><span class="opt-text">Cavab 3</span></button>
-                <button class="option-btn" data-index="3"><span class="opt-text">Cavab 4</span></button>
-            </div>
-
-            <p id="status-message"></p>
-            <button id="back-to-menu" class="back-btn" style="margin-top: 20px;">Menyuya Qayıt</button>
-        </div>
+    <!-- 1. ƏSAS MENYU -->
+    <div id="main-menu">
+        <h1>🎯 Bilik Yarışması</h1>
+        <p>Biliyini sına, dostlarınla yarış!</p>
+        <button id="btn-singleplayer">🎮 Tək Oyunçu (Solo)</button>
+        <button id="btn-multiplayer-menu">👥 Multiplayer Otaq</button>
+        <div id="high-score-display" style="margin-top: 20px; font-weight: bold; color: #ffcc00;">🏆 Rekord: 0</div>
     </div>
 
-    <!-- Firebase SDK scripts -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-    
+    <!-- 2. KATEQORİYA SEÇİMİ -->
+    <div id="category-screen" style="display: none;">
+        <h2>Kateqoriya Seçin</h2>
+        <div class="categories-grid">
+            <button class="cat-btn" data-category="Ümumi">🌐 Ümumi (Bütün Suallar)</button>
+            <button class="cat-btn" data-category="Tarix">📜 Tarix</button>
+            <button class="cat-btn" data-category="Coğrafiya">🗺️ Coğrafiya</button>
+            <button class="cat-btn" data-category="İdman">⚽ İdman</button>
+            <button class="cat-btn" data-category="Elm və Texnologiya">🔬 Elm və Texnologiya</button>
+            <button class="cat-btn" data-category="Fəlsəfə">🧠 Fəlsəfə</button>
+            <button class="cat-btn" data-category="İqtisadiyyat">📈 İqtisadiyyat</button>
+            <button class="cat-btn" data-category="İncəsənət">🎨 İncəsənət</button>
+        </div>
+        <button id="back-to-main" style="margin-top: 15px;">⬅️ Əsas Menyuya Qayıt</button>
+    </div>
+
+    <!-- 3. MULTİPLAYER LOBBİ VƏ QOŞULMA -->
+    <div id="multiplayer-screen" style="display: none;">
+        <h2>Multiplayer Rejimi</h2>
+        <input type="text" id="player-name" placeholder="Adınızı daxil edin..." maxlength="15">
+        
+        <div style="margin-bottom: 20px;">
+            <button id="create-room-btn">🏠 Yeni Otaq Yarat</button>
+        </div>
+
+        <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px; margin-top: 15px;">
+            <input type="text" id="room-code-input" placeholder="Otaq Kodu (məs: A1B2)" maxlength="6">
+            <button id="join-room-btn">🔗 Otağa Qoşul</button>
+        </div>
+
+        <!-- Otaq Gözləmə Qutusu -->
+        <div id="room-lobby-box" style="display: none;">
+            <p>Otaq Kodu:</p>
+            <div id="display-room-code">----</div>
+            <p style="margin-top: 10px; font-weight: bold; color: #fff;">Otaqdakı Oyunçular:</p>
+            <ul id="lobby-players-list"></ul>
+            <button id="start-mp-game-btn" style="margin-top: 15px; display: none; background: linear-gradient(135deg, #00b09b, #96c93d);">🚀 Oyunu Başlat</button>
+        </div>
+
+        <button id="back-to-menu-from-mp" style="margin-top: 15px;">⬅️ Əsas Menyuya Qayıt</button>
+    </div>
+
+    <!-- 4. OYUN EKRANI -->
+    <div id="game-screen" style="display: none;">
+        <div class="game-header">
+            <span id="cat-title">Kateqoriya</span>
+            <span id="timer">⏱️ 20</span>
+            <span id="score">Xal: 0</span>
+        </div>
+
+        <!-- Multiplayer Canlı Xal Cədvəli -->
+        <div id="mp-scoreboard" style="display: none; margin-bottom: 15px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;">
+            <div id="mp-scores-list" style="display: flex; gap: 8px; flex-wrap: wrap;"></div>
+        </div>
+
+        <h3 id="question-text" style="margin-bottom: 20px; font-size: 18px; line-height: 1.4;">Sual burada görünəcək...</h3>
+
+        <div class="options-grid">
+            <button class="option-btn" data-index="0"><span class="opt-text">Seçim 1</span></button>
+            <button class="option-btn" data-index="1"><span class="opt-text">Seçim 2</span></button>
+            <button class="option-btn" data-index="2"><span class="opt-text">Seçim 3</span></button>
+            <button class="option-btn" data-index="3"><span class="opt-text">Seçim 4</span></button>
+        </div>
+
+        <!-- 50/50 Kömək Düyməsi -->
+        <button id="lifeline-btn" style="margin-top: 15px; background: linear-gradient(135deg, #f2994a, #f2c94c);">💡 50/50 Kömək (2 səhv cavabı sil)</button>
+
+        <p id="status-message" style="margin-top: 15px; font-weight: bold; min-height: 24px;"></p>
+
+        <button id="back-to-menu" style="margin-top: 10px;">❌ Oyundan Çıx</button>
+    </div>
+
+    <!-- Firebase SDK (Realtime Database üçün vacibdir) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+    <!-- Oyun Məlumatları və Əsas Skript -->
     <script src="questions.js"></script>
     <script src="script.js"></script>
 </body>
