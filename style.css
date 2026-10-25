@@ -1,3 +1,4 @@
+/* --- ÜMUMİ AYARLAR VƏ FON --- */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -6,197 +7,162 @@
 }
 
 body {
-    background: #0b091a;
-    background-image: 
-        radial-gradient(circle at 20% 20%, rgba(114, 9, 183, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 80% 80%, rgba(76, 201, 240, 0.15) 0%, transparent 40%);
-    background-attachment: fixed;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
     color: #ffffff;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    padding: 20px;
 }
 
-.container {
-    width: 100%;
-    max-width: 600px;
-    background: rgba(18, 18, 30, 0.9);
+/* --- OYUN KONTEYNERİ (KART) --- */
+.container, #main-menu, #category-screen, #multiplayer-screen, #game-screen {
+    background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(12px);
-    padding: 35px;
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
-    box-shadow: 0 0 30px rgba(76, 201, 240, 0.2);
+    padding: 30px;
+    width: 100%;
+    max-width: 480px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     text-align: center;
-    border: 2px solid rgba(76, 201, 240, 0.3);
 }
 
-.screen {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
+/* --- BAŞLIQLAR --- */
 h1, h2 {
-    margin-bottom: 15px;
-    color: #4cc9f0;
-    text-shadow: 0 0 10px rgba(76, 201, 240, 0.5);
+    margin-bottom: 20px;
+    font-size: 26px;
+    color: #00d2ff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
 }
 
 p {
-    margin-bottom: 20px;
-    color: #b5179e;
-    font-size: 1.1rem;
-    font-weight: bold;
+    color: #b8b8d2;
+    margin-bottom: 15px;
+    font-size: 15px;
 }
 
-.menu-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    width: 100%;
-    max-width: 320px;
-    margin-top: 20px;
-}
-
-.menu-btn, .cat-btn, .mp-btn, .back-btn, .option-btn {
-    background: linear-gradient(135deg, #7209b7, #3a0ca3);
-    color: #ffffff;
-    border: 2px solid #4cc9f0;
-    padding: 14px 20px;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    width: 100%;
-    box-shadow: 0 0 15px rgba(114, 9, 183, 0.4);
-}
-
-.menu-btn:hover, .cat-btn:hover, .mp-btn:hover, .back-btn:hover, .option-btn:hover {
-    background: linear-gradient(135deg, #4cc9f0, #4361ee);
-    color: #0b091a;
-    border-color: #ffffff;
-    transform: translateY(-3px);
-    box-shadow: 0 0 20px rgba(76, 201, 240, 0.8);
-}
-
-.categories-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-.options-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 100%;
-    margin: 20px 0;
-}
-
-.option-btn {
-    background: rgba(26, 26, 46, 0.9);
-    color: #ffffff;
-    text-align: left;
-    padding: 15px;
-    border-color: #7209b7;
-}
-
+/* --- INPUT VƏ DÜYMƏLƏR --- */
 input[type="text"] {
     width: 100%;
-    padding: 12px;
-    border-radius: 10px;
-    border: 2px solid #7209b7;
-    background: #0b091a;
-    color: #fff;
-    font-size: 1rem;
+    padding: 12px 15px;
     margin-bottom: 15px;
-    text-align: center;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 16px;
     outline: none;
+    transition: all 0.3s ease;
 }
 
 input[type="text"]:focus {
-    border-color: #4cc9f0;
-    box-shadow: 0 0 10px rgba(76, 201, 240, 0.5);
+    border-color: #00d2ff;
+    box-shadow: 0 0 8px rgba(0, 210, 255, 0.4);
 }
 
+button {
+    width: 100%;
+    padding: 12px 20px;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 114, 255, 0.3);
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 114, 255, 0.5);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+/* --- GERİ VƏ İKİNCİDƏMƏLİ DÜYMƏLƏR --- */
+#back-to-main, #back-to-menu-from-mp, #back-to-menu {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: none;
+}
+
+#back-to-main:hover, #back-to-menu-from-mp:hover, #back-to-menu:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* --- KATEQORİYA VƏ CAVAB SEÇENAKLARI (GRID) --- */
+.options-grid, .categories-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.option-btn, .cat-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 14px;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s ease;
+}
+
+.option-btn:hover, .cat-btn:hover {
+    background: rgba(0, 210, 255, 0.2);
+    border-color: #00d2ff;
+    padding-left: 18px;
+}
+
+/* --- OYUN ÜST PANELİ (TAYMER VƏ XAL) --- */
 .game-header {
     display: flex;
     justify-content: space-between;
-    width: 100%;
+    align-items: center;
     margin-bottom: 20px;
+    font-size: 16px;
     font-weight: bold;
-    color: #4cc9f0;
-    font-size: 1.1rem;
+    color: #ffcc00;
 }
 
-.back-btn {
-    background: #f72585;
-    border-color: #f72585;
-    color: #fff;
-    margin-top: 15px;
-    width: auto;
-    padding: 10px 25px;
-    box-shadow: 0 0 15px rgba(247, 37, 133, 0.4);
+#timer {
+    background: rgba(255, 68, 68, 0.2);
+    border: 1px solid #ff4444;
+    padding: 6px 12px;
+    border-radius: 20px;
+    color: #ff6b6b;
 }
 
-.back-btn:hover {
-    background: #b5179e;
-    border-color: #ffffff;
-    box-shadow: 0 0 20px rgba(247, 37, 133, 0.8);
+/* --- LOBBİ VƏ MULTİPLAYER SİYAHISI --- */
+#room-lobby-box {
+    margin-top: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px dashed rgba(255, 255, 255, 0.2);
 }
 
-.lifeline-btn {
-    background: linear-gradient(135deg, #f72585, #b5179e);
-    color: #fff;
-    border: 2px solid #f72585;
-    padding: 10px 20px;
-    border-radius: 12px;
+#display-room-code {
+    font-size: 24px;
     font-weight: bold;
-    font-size: 0.95rem;
-    cursor: pointer;
-    display: block;
-    width: fit-content;
-    margin: 0 auto 15px auto; /* Avtomatik olaraq tən ortaya yığır */
-    box-shadow: 0 0 15px rgba(247, 37, 133, 0.4);
-    transition: all 0.3s ease;
-}
-
-.lifeline-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 22px rgba(247, 37, 133, 0.8);
-}
-
-.lifeline-btn:disabled {
-    background: #2a2a40;
-    border-color: #444;
-    color: #666;
-    cursor: not-allowed;
-    box-shadow: none;
-    transform: none;
-}
-
-.lobby-box {
-    background: rgba(11, 9, 26, 0.8);
-    border: 1px solid rgba(76, 201, 240, 0.3);
-    padding: 20px;
-    border-radius: 12px;
-    margin-top: 15px;
-    width: 100%;
+    letter-spacing: 2px;
+    color: #00ffcc;
+    margin: 10px 0;
 }
 
 #lobby-players-list {
     list-style: none;
-    margin: 10px 0;
-}
-
-.mp-scoreboard {
-    background: rgba(11, 9, 26, 0.8);
-    border: 1px solid rgba(76, 201, 240, 0.3);
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    width: 100%;
+    margin-top: 10px;
+    text-align: left;
+    max-height: 120px;
+    overflow-y: auto;
 }
