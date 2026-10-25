@@ -245,26 +245,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- SƏSLƏNDİRMƏ (AZ-AZ / TR-TR) ---
-    function speakText(text) {
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel();
-            
-            setTimeout(() => {
-                let cleanText = text.trim();
-                if (!/[.!?]$/.test(cleanText)) cleanText += ".";
-
-                currentUtterance = new SpeechSynthesisUtterance(cleanText);
-                currentUtterance.lang = 'az-AZ';
-                
-                const azVoice = availableVoices.find(v => v.lang.includes('az') || v.lang.includes('AZ'));
-                const trVoice = availableVoices.find(v => v.lang.includes('tr') || v.lang.includes('TR'));
-
-                if (azVoice) {
-                    currentUtterance.voice = azVoice;
-                } else if (trVoice) {
-                    currentUtterance.voice = trVoice;
-                    currentUtterance.lang = 'tr-TR';
-                }
+function speakText(text) {
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel(); // Əvvəlki oxunan səsi dayandırır
+        const utterance = new SpeechSynthesisUtterance(text);
+        
+        // Cihazdaki mövcud səsləri yoxlayırıq
+        const voices = window.speechSynthesis.getVoices();
+        
+        // Əvvəlcə azərbaycan dili, tapılmasa türk dili səsi axtarırıq
+        const selectedVoice = voices.find(v => v.lang.startsWith('az') || v.lang.startsWith('tr')) 
+                           || voices.find(v => v.lang.includes('az') || v.lang.includes('tr'));
+        
+        if (selectedVoice) {
+            utterance.voice = selectedVoice;
+            utterance.lang = selectedVoice.lang;
+        } else {
+            utterance.lang = 'az-AZ'; // Əgər heç biri yoxdursa standart azeri qoyur
+        }
+        
+        window.speechSynthesis.speak(utterance);
+    }
 
                 currentUtterance.rate = 0.95;
                 currentUtterance.pitch = 1.0;
