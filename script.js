@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const firebaseConfig = {
         apiKey: "AIzaSyAsQZCRqSyXQEsJuxv75G68BeW-9XTciDQ",
         authDomain: "sual-cavab-1.firebaseapp.com",
-        databaseURL: "https://SENIN_PROEKT-default-rtdb.firebaseio.com",
+        databaseURL: "https://sual-cavab-1-default-rtdb.firebaseio.com",
         projectId: "sual-cavab-1",
         storageBucket: "sual-cavab-1.firebasestorage.app",
         messagingSenderId: "787196691754",
@@ -30,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let isHost = false;
     let lifelineUsed = false;
 
-    let currentUtterance = null;
     let availableVoices = [];
 
     // Səs sintezi (Speech Synthesis) hazırlığı
@@ -137,7 +136,6 @@ document.addEventListener('DOMContentLoaded', () => {
             catTitle.innerText = `📁 ${category}`;
         }
 
-        // Sualları qarışdırırıq ki, ordan-burdan təsadüfi gəlsin
         currentQuestions = shuffleArray(currentQuestions);
 
         categoryScreen.style.display = 'none';
@@ -245,32 +243,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- SƏSLƏNDİRMƏ (AZ-AZ / TR-TR) ---
-function speakText(text) {
-    if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel(); // Əvvəlki oxunan səsi dayandırır
-        const utterance = new SpeechSynthesisUtterance(text);
-        
-        // Cihazdaki mövcud səsləri yoxlayırıq
-        const voices = window.speechSynthesis.getVoices();
-        
-        // Əvvəlcə azərbaycan dili, tapılmasa türk dili səsi axtarırıq
-        const selectedVoice = voices.find(v => v.lang.startsWith('az') || v.lang.startsWith('tr')) 
-                           || voices.find(v => v.lang.includes('az') || v.lang.includes('tr'));
-        
-        if (selectedVoice) {
-            utterance.voice = selectedVoice;
-            utterance.lang = selectedVoice.lang;
-        } else {
-            utterance.lang = 'az-AZ'; // Əgər heç biri yoxdursa standart azeri qoyur
-        }
-        
-        window.speechSynthesis.speak(utterance);
-    }
-
-                currentUtterance.rate = 0.95;
-                currentUtterance.pitch = 1.0;
-                window.speechSynthesis.speak(currentUtterance);
-            }, 200);
+    function speakText(text) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            
+            const voices = window.speechSynthesis.getVoices();
+            const selectedVoice = voices.find(v => v.lang.startsWith('az') || v.lang.startsWith('tr')) 
+                               || voices.find(v => v.lang.includes('az') || v.lang.includes('tr'));
+            
+            if (selectedVoice) {
+                utterance.voice = selectedVoice;
+                utterance.lang = selectedVoice.lang;
+            } else {
+                utterance.lang = 'az-AZ';
+            }
+            
+            utterance.rate = 0.95;
+            utterance.pitch = 1.0;
+            window.speechSynthesis.speak(utterance);
         }
     }
 
