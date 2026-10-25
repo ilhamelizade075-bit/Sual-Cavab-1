@@ -242,25 +242,40 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- SƏSLƏNDİRMƏ (AZ-AZ MƏCBURİ) ---
-    function speakText(text) {
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
-            
-            utterance.lang = 'az-AZ';
-            
-            const voices = window.speechSynthesis.getVoices();
-            const azVoice = voices.find(v => v.lang.toLowerCase().includes('az') || v.name.toLowerCase().includes('azerbaijan'));
-            
-            if (azVoice) {
-                utterance.voice = azVoice;
-            }
-            
-            utterance.rate = 0.95;
-            utterance.pitch = 1.0;
-            window.speechSynthesis.speak(utterance);
+function speakText(text) {
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel(); // Əvvəlki oxunan səsi dayandırır
+        const utterance = new SpeechSynthesisUtterance(text);
+        
+        const voices = window.speechSynthesis.getVoices();
+        
+        // 1-ci seçim: Azərbaycan dili səsi
+        let selectedVoice = voices.find(v => 
+            v.lang.toLowerCase().includes('az') || 
+            v.name.toLowerCase().includes('azerbaijan')
+        );
+        
+        // 2-ci seçim (Fallback): Əgər Azərbaycan səsi yokdursa, Türk dili səsini seç (İngiliscə oxumaması üçün)
+        if (!selectedVoice) {
+            selectedVoice = voices.find(v => 
+                v.lang.toLowerCase().includes('tr') || 
+                v.name.toLowerCase().includes('turkish')
+            );
         }
+        
+        if (selectedVoice) {
+            utterance.voice = selectedVoice;
+            utterance.lang = selectedVoice.lang;
+        } else {
+            utterance.lang = 'az-AZ';
+        }
+        
+        utterance.rate = 0.95; // Oxuma sürəti
+        utterance.pitch = 1.0; // Səs tonu
+        
+        window.speechSynthesis.speak(utterance);
     }
+}
 
     // --- SUAL YÜKLƏMƏ MƏNTİQİ ---
     function loadQuestion() {
