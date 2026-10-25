@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // ---  For Firebase JS SDK v7.20.0 and later, measurementId is optional ---
+    // --- FİREBASE KONFİQURASİYASI ---
     const firebaseConfig = {
         apiKey: "AIzaSyAsQZCRqSyXQEsJuxv75G68BeW-9XTciDQ",
         authDomain: "sual-cavab-1.firebaseapp.com",
@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let myPlayerId = 'p_' + Math.random().toString(36).substring(2, 9);
     let isHost = false;
     let lifelineUsed = false;
-
     let availableVoices = [];
 
     // Səs sintezi (Speech Synthesis) hazırlığı
@@ -242,21 +241,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- SƏSLƏNDİRMƏ (AZ-AZ / TR-TR) ---
+    // --- SƏSLƏNDİRMƏ (AZ-AZ MƏCBURİ) ---
     function speakText(text) {
         if ('speechSynthesis' in window) {
             window.speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
             
-            const voices = window.speechSynthesis.getVoices();
-            const selectedVoice = voices.find(v => v.lang.startsWith('az') || v.lang.startsWith('tr')) 
-                               || voices.find(v => v.lang.includes('az') || v.lang.includes('tr'));
+            utterance.lang = 'az-AZ';
             
-            if (selectedVoice) {
-                utterance.voice = selectedVoice;
-                utterance.lang = selectedVoice.lang;
-            } else {
-                utterance.lang = 'az-AZ';
+            const voices = window.speechSynthesis.getVoices();
+            const azVoice = voices.find(v => v.lang.toLowerCase().includes('az') || v.name.toLowerCase().includes('azerbaijan'));
+            
+            if (azVoice) {
+                utterance.voice = azVoice;
             }
             
             utterance.rate = 0.95;
