@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Multilingual Trivia Game</title>
-    <!-- Xarici CSS faylı -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -25,11 +24,9 @@
             <button class="cat-btn" data-category="Ümumi">🌐 Ümumi (Bütün Suallar)</button>
             <button class="cat-btn" data-category="Tarix">📜 Tarix</button>
             <button class="cat-btn" data-category="Coğrafiya">🗺️ Coğrafiya</button>
-            <button class="cat-btn" data-category="İdman">⚽ İdman</button>
-            <button class="cat-btn" data-category="Elm və Texnologiya">🔬 Elm və Texnologiya</button>
-            <button class="cat-btn" data-category="Fəlsəfə">🧠 Fəlsəfə</button>
-            <button class="cat-btn" data-category="İqtisadiyyat">📈 İqtisadiyyat</button>
-            <button class="cat-btn" data-category="İncəsənət">🎨 İncəsənət</button>
+            <button class="cat-btn" data-category="Riyaziyyat">📐 Riyaziyyat</button>
+            <button class="cat-btn" data-category="Futbol">⚽ Futbol</button>
+            <button class="cat-btn" data-category="İnformatika">💻 İnformatika</button>
         </div>
         <button id="back-to-main" style="margin-top: 15px;">⬅️ Əsas Menyuya Qayıt</button>
     </div>
@@ -48,7 +45,6 @@
             <button id="join-room-btn">🔗 Otağa Qoşul</button>
         </div>
 
-        <!-- Otaq Gözləmə Qutusu -->
         <div id="room-lobby-box" style="display: none;">
             <p>Otaq Kodu:</p>
             <div id="display-room-code">----</div>
@@ -68,7 +64,6 @@
             <span id="score">Xal: 0</span>
         </div>
 
-        <!-- Multiplayer Canlı Xal Cədvəli -->
         <div id="mp-scoreboard" style="display: none; margin-bottom: 15px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;">
             <div id="mp-scores-list" style="display: flex; gap: 8px; flex-wrap: wrap;"></div>
         </div>
@@ -82,7 +77,6 @@
             <button class="option-btn" data-index="3"><span class="opt-text">Seçim 4</span></button>
         </div>
 
-        <!-- 50/50 Kömək Düyməsi -->
         <button id="lifeline-btn" style="margin-top: 15px; background: linear-gradient(135deg, #f2994a, #f2c94c);">💡 50/50 Kömək (2 səhv cavabı sil)</button>
 
         <p id="status-message" style="margin-top: 15px; font-weight: bold; min-height: 24px;"></p>
@@ -90,11 +84,10 @@
         <button id="back-to-menu" style="margin-top: 10px;">❌ Oyundan Çıx</button>
     </div>
 
-    <!-- Firebase SDK (Realtime Database üçün vacibdir) -->
+    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
-    <!-- Oyun Məlumatları və Əsas Skript -->
     <script src="questions.js"></script>
     <script src="script.js"></script>
 </body>
