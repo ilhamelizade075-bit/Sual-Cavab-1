@@ -29,18 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let myPlayerId = 'p_' + Math.random().toString(36).substring(2, 9);
     let isHost = false;
     let lifelineUsed = false;
-    let availableVoices = [];
-
-    // Səs sintezi (Speech Synthesis) hazırlığı
-    if ('speechSynthesis' in window) {
-        function populateVoices() {
-            availableVoices = window.speechSynthesis.getVoices();
-        }
-        populateVoices();
-        if (window.speechSynthesis.onvoiceschanged !== undefined) {
-            window.speechSynthesis.onvoiceschanged = populateVoices;
-        }
-    }
 
     // --- DOM ELEMENTLƏRİ ---
     const mainMenu = document.getElementById('main-menu');
@@ -96,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('back-to-menu').addEventListener('click', () => {
         clearInterval(timerInterval);
-        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
         gameScreen.style.display = 'none';
         mainMenu.style.display = 'block';
         mpScoreboard.style.display = 'none';
@@ -241,20 +228,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- SƏSLƏNDİRMƏ (TÜRK DİLİ MƏCBURİ - İNGİLİSÇƏ OXUMAMASI ÜÇÜN) ---
-    function speakText(text) {
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
-            
-            utterance.lang = 'tr-TR'; 
-            utterance.rate = 0.95;
-            utterance.pitch = 1.0;
-            
-            window.speechSynthesis.speak(utterance);
-        }
-    }
-
     // --- SUAL YÜKLƏMƏ MƏNTİQİ ---
     function loadQuestion() {
         clearInterval(timerInterval);
@@ -279,8 +252,6 @@ document.addEventListener('DOMContentLoaded', () => {
             questionText.innerText = `Oyun bitdi! Son xalınız: ${score}`;
             document.querySelector('.options-grid').style.display = 'none';
             if (lifelineBtn) lifelineBtn.style.display = 'none';
-            
-            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
 
             if (!isMultiplayer && score > highScore) {
                 highScore = score;
@@ -294,8 +265,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const q = currentQuestions[currentQuestionIndex];
         questionText.innerText = q.question;
-
-        speakText(q.question);
 
         q.options.forEach((opt, index) => {
             optionButtons[index].querySelector('.opt-text').innerText = opt;
@@ -332,7 +301,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
-                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
                 timeOut();
             }
         }, 1000);
@@ -353,8 +321,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (isAnswered) return;
             isAnswered = true;
             clearInterval(timerInterval);
-
-            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
 
             const selectedIndex = parseInt(e.currentTarget.getAttribute('data-index'));
             const q = currentQuestions[currentQuestionIndex];
