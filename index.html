@@ -6,26 +6,31 @@
     <title>İntellektual Turnir Şousu</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background: radial-gradient(circle at center, #0f172a 0%, #020617 100%); color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-        .container { background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(16px); border: 2px solid rgba(56, 189, 248, 0.3); width: 100%; max-width: 680px; padding: 35px; border-radius: 24px; box-shadow: 0 0 50px rgba(56, 189, 248, 0.2), 0 25px 50px -12px rgba(0, 0, 0, 0.9); text-align: center; }
-        h1 { font-size: 2.5rem; margin-bottom: 10px; background: linear-gradient(135deg, #38bdf8, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        body { background: radial-gradient(circle at center, #090d16 0%, #02040a 100%); color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .container { background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(16px); border: 2px solid rgba(56, 189, 248, 0.4); width: 100%; max-width: 700px; padding: 35px; border-radius: 24px; box-shadow: 0 0 60px rgba(56, 189, 248, 0.25), 0 25px 50px -12px rgba(0, 0, 0, 0.9); text-align: center; }
+        h1 { font-size: 2.5rem; margin-bottom: 10px; background: linear-gradient(135deg, #38bdf8, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 20px rgba(56,189,248,0.3); }
         p { color: #94a3b8; margin-bottom: 25px; font-size: 1rem; }
         button { background: linear-gradient(135deg, #38bdf8, #2563eb); color: #fff; border: none; padding: 14px 24px; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 1rem; transition: transform 0.2s, box-shadow 0.2s; width: 100%; margin-top: 10px; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4); }
         button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(56, 189, 248, 0.6); }
-        .secondary-btn { background: #334155; box-shadow: none; }
-        .secondary-btn:hover { background: #475569; box-shadow: none; }
+        .secondary-btn { background: #1e293b; border: 1px solid #334155; box-shadow: none; }
+        .secondary-btn:hover { background: #334155; box-shadow: none; }
         input, select { width: 100%; padding: 14px 18px; background: #020617; border: 1px solid #334155; border-radius: 12px; color: #fff; font-size: 1rem; outline: none; margin-bottom: 15px; }
-        input:focus, select:focus { border-color: #38bdf8; }
+        input:focus, select:focus { border-color: #38bdf8; box-shadow: 0 0 10px rgba(56,189,248,0.3); }
         .player-tag { display: inline-flex; align-items: center; background: #1e293b; border: 1px solid #334155; padding: 8px 16px; border-radius: 20px; margin: 6px; font-size: 0.95rem; gap: 10px; }
         .player-tag span { cursor: pointer; color: #f43f5e; font-weight: bold; }
-        .game-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; font-size: 1.1rem; font-weight: bold; color: #38bdf8; background: #020617; padding: 12px 20px; border-radius: 12px; border: 1px solid #1e293b; }
+        .game-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-size: 1.1rem; font-weight: bold; color: #38bdf8; background: #020617; padding: 12px 20px; border-radius: 12px; border: 1px solid #1e293b; }
+        
+        /* 25 Saniyəlik Taymer Bar Dizaynı */
+        .timer-bar-container { width: 100%; height: 8px; background: #1e293b; border-radius: 4px; overflow: hidden; margin-bottom: 20px; }
+        .timer-bar { width: 100%; height: 100%; background: linear-gradient(90deg, #f59e0b, #ef4444); transition: width 1s linear; }
+
         .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        .option-btn { background: linear-gradient(135deg, #1e293b, #0f172a); border: 2px solid #334155; color: #fff; padding: 18px; border-radius: 12px; cursor: pointer; font-size: 1.05rem; text-align: left; transition: 0.2s; }
-        .option-btn:hover:not(:disabled) { border-color: #38bdf8; background: #1e293b; transform: translateY(-2px); }
+        .option-btn { background: linear-gradient(135deg, #1e293b, #0f172a); border: 2px solid #334155; color: #fff; padding: 18px; border-radius: 12px; cursor: pointer; font-size: 1.05rem; text-align: left; transition: 0.2s; box-shadow: none; }
+        .option-btn:hover:not(:disabled) { border-color: #38bdf8; background: #1e293b; transform: translateY(-2px); box-shadow: 0 0 15px rgba(56,189,248,0.3); }
         .lifelines { display: flex; gap: 12px; margin-top: 15px; justify-content: center; }
-        .lifeline-btn { background: linear-gradient(135deg, #f59e0b, #d97706); color: #000; font-weight: bold; padding: 10px 20px; width: auto; margin: 0; }
-        .lifeline-btn:disabled { background: #334155; color: #64748b; cursor: not-allowed; transform: none; }
-        #question-box { font-size: 1.35rem; line-height: 1.5; margin: 20px 0; min-height: 100px; display: flex; align-items: center; justify-content: center; background: #020617; padding: 25px; border-radius: 16px; border: 2px solid #1e293b; }
+        .lifeline-btn { background: linear-gradient(135deg, #f59e0b, #d97706); color: #000; font-weight: bold; padding: 10px 20px; width: auto; margin: 0; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3); }
+        .lifeline-btn:disabled { background: #1e293b; color: #475569; cursor: not-allowed; transform: none; box-shadow: none; border: 1px solid #334155; }
+        #question-box { font-size: 1.35rem; line-height: 1.5; margin: 15px 0; min-height: 100px; display: flex; align-items: center; justify-content: center; background: #020617; padding: 25px; border-radius: 16px; border: 2px solid #1e293b; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); }
     </style>
 </head>
 <body>
@@ -64,6 +69,11 @@
                 <span id="current-round-text">Tur: 1 / 6</span>
                 <span id="current-player-text">Oyunçu: Əli</span>
                 <span id="timer-text" style="color: #f59e0b;">⏱️ 25s</span>
+            </div>
+
+            <!-- Gözlə görünən 25 saniyəlik tərəqqi xətti -->
+            <div class="timer-bar-container">
+                <div class="timer-bar" id="timer-bar"></div>
             </div>
 
             <div class="lifelines">
@@ -121,7 +131,7 @@
         }
 
         function goHome() {
-            clearInterval(timer);
+            if(timer) clearInterval(timer);
             document.getElementById('setup-screen').style.display = 'none';
             document.getElementById('game-screen').style.display = 'none';
             document.getElementById('result-screen').style.display = 'none';
@@ -187,7 +197,7 @@
 
             isReadingPhase = true;
             timeLeft = 25; 
-            document.getElementById('timer-text').innerText = `⏱️ ${timeLeft}s`;
+            updateTimerDisplay();
             document.getElementById('question-box').innerText = `${currentPlayer.name}, sual oxunur (Hazırlaş)...`;
             
             const optionBtns = document.querySelectorAll('.option-btn');
@@ -196,14 +206,15 @@
                 b.style.opacity = '0.3';
                 b.disabled = true;
                 b.style.background = 'linear-gradient(135deg, #1e293b, #0f172a)';
+                b.style.borderColor = '#334155';
             });
-            document.getElementById('status-msg').innerText = "Sual səsləndirilir...";
+            document.getElementById('status-msg').innerText = "Sual oxunur...";
 
             if(timer) clearInterval(timer);
 
             timer = setInterval(() => {
                 timeLeft--;
-                document.getElementById('timer-text').innerText = `⏱️ ${timeLeft}s`;
+                updateTimerDisplay();
 
                 if(timeLeft === 20) {
                     beginAnsweringPhase();
@@ -214,6 +225,12 @@
                     handleAnswer(-1); 
                 }
             }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            document.getElementById('timer-text').innerText = `⏱️ ${timeLeft}s`;
+            const percentage = (timeLeft / 25) * 100;
+            document.getElementById('timer-bar').style.width = percentage + '%';
         }
 
         function beginAnsweringPhase() {
@@ -232,7 +249,7 @@
 
         function checkAnswer(selectedIndex) {
             if(isReadingPhase) return;
-            clearInterval(timer);
+            if(timer) clearInterval(timer);
             handleAnswer(selectedIndex);
         }
 
@@ -246,12 +263,14 @@
 
             if(selectedIndex === window.currentQ.correct) {
                 optionBtns[selectedIndex].style.background = '#10b981';
+                optionBtns[selectedIndex].style.borderColor = '#34d399';
                 currentPlayer.score += 10;
                 document.getElementById('status-msg').innerText = "🎉 Düzdür! (+10 xal)";
                 document.getElementById('status-msg').style.color = '#10b981';
             } else {
                 if(selectedIndex !== -1) {
                     optionBtns[selectedIndex].style.background = '#ef4444';
+                    optionBtns[selectedIndex].style.borderColor = '#f87171';
                 }
                 optionBtns[window.currentQ.correct].style.background = '#10b981';
                 document.getElementById('status-msg').innerText = "❌ Səhvdir / Vaxt bitdi! Turdan kənarlaşdırıldın.";
