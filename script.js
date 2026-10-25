@@ -241,46 +241,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- SƏSLƏNDİRMƏ (AZ-AZ MƏCBURİ) ---
-// --- SƏSLƏNDİRMƏ (Gecikməli və Təhlükəsiz Versiya) ---
-function speakText(text) {
-    if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel(); // Əvvəlki səsi dayandırır
-        const utterance = new SpeechSynthesisUtterance(text);
-        
-        // Səslərin yüklənməsini gözləmək üçün mövcud massivdən istifadə edirik
-        let voices = availableVoices.length > 0 ? availableVoices : window.speechSynthesis.getVoices();
-        
-        // 1-ci seçim: Azərbaycan dili səsi
-        let selectedVoice = voices.find(v => 
-            v.lang.toLowerCase().includes('az') || 
-            v.name.toLowerCase().includes('azerbaijan')
-        );
-        
-        // 2-ci seçim (Fallback): Türk dili səsi
-        if (!selectedVoice) {
-            selectedVoice = voices.find(v => 
-                v.lang.toLowerCase().includes('tr') || 
-                v.name.toLowerCase().includes('turkish')
-            );
-        }
-        
-        if (selectedVoice) {
-            utterance.voice = selectedVoice;
-            utterance.lang = selectedVoice.lang;
-        } else {
-            utterance.lang = 'az-AZ';
-        }
-        
-        utterance.rate = 0.95; // Oxuma sürəti
-        utterance.pitch = 1.0; // Səs tonu
-        
-        // Brauzerin səsi tutması üçün qısa gecikmə əlavə edirik
-        setTimeout(() => {
+    // --- SƏSLƏNDİRMƏ (TÜRK DİLİ MƏCBURİ - İNGİLİSÇƏ OXUMAMASI ÜÇÜN) ---
+    function speakText(text) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            
+            utterance.lang = 'tr-TR'; 
+            utterance.rate = 0.95;
+            utterance.pitch = 1.0;
+            
             window.speechSynthesis.speak(utterance);
-        }, 150);
+        }
     }
-}
 
     // --- SUAL YÜKLƏMƏ MƏNTİQİ ---
     function loadQuestion() {
