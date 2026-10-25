@@ -242,12 +242,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- SƏSLƏNDİRMƏ (AZ-AZ MƏCBURİ) ---
+// --- SƏSLƏNDİRMƏ (Gecikməli və Təhlükəsiz Versiya) ---
 function speakText(text) {
     if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel(); // Əvvəlki oxunan səsi dayandırır
+        window.speechSynthesis.cancel(); // Əvvəlki səsi dayandırır
         const utterance = new SpeechSynthesisUtterance(text);
         
-        const voices = window.speechSynthesis.getVoices();
+        // Səslərin yüklənməsini gözləmək üçün mövcud massivdən istifadə edirik
+        let voices = availableVoices.length > 0 ? availableVoices : window.speechSynthesis.getVoices();
         
         // 1-ci seçim: Azərbaycan dili səsi
         let selectedVoice = voices.find(v => 
@@ -255,7 +257,7 @@ function speakText(text) {
             v.name.toLowerCase().includes('azerbaijan')
         );
         
-        // 2-ci seçim (Fallback): Əgər Azərbaycan səsi yokdursa, Türk dili səsini seç (İngiliscə oxumaması üçün)
+        // 2-ci seçim (Fallback): Türk dili səsi
         if (!selectedVoice) {
             selectedVoice = voices.find(v => 
                 v.lang.toLowerCase().includes('tr') || 
@@ -273,7 +275,10 @@ function speakText(text) {
         utterance.rate = 0.95; // Oxuma sürəti
         utterance.pitch = 1.0; // Səs tonu
         
-        window.speechSynthesis.speak(utterance);
+        // Brauzerin səsi tutması üçün qısa gecikmə əlavə edirik
+        setTimeout(() => {
+            window.speechSynthesis.speak(utterance);
+        }, 150);
     }
 }
 
